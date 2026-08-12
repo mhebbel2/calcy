@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>calcy — calculator</title>
+  <meta name="description" content="A touch-first pocket calculator PWA with standard and scientific modes. Works offline.">
+  <meta name="theme-color" content="#14171C">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="calcy">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app" aria-label="Calculator">
+
+    <header class="topbar">
+      <span class="brand">calcy</span>
+      <div class="mode-switch" role="tablist" aria-label="Calculator mode">
+        <span class="mode-thumb" aria-hidden="true"></span>
+        <button class="mode-btn is-active" id="modeStd" role="tab" aria-selected="true">Std</button>
+        <button class="mode-btn" id="modeSci" role="tab" aria-selected="false">Sci</button>
+      </div>
+    </header>
+
+    <section class="readout" aria-live="polite">
+      <div class="readout-meta">
+        <span class="angle-badge" id="angleBadge" hidden>DEG</span>
+        <div class="preview" id="preview"></div>
+      </div>
+      <div class="display" id="display">0</div>
+    </section>
+
+    <section class="sci-panel" id="sciPanel" hidden aria-label="Scientific functions">
+      <div class="sci-grid">
+        <button class="key key-sci" id="angleToggle" data-action="angle">DEG</button>
+        <button class="key key-sci" data-insert="sin(">sin</button>
+        <button class="key key-sci" data-insert="cos(">cos</button>
+        <button class="key key-sci" data-insert="tan(">tan</button>
+        <button class="key key-sci" data-insert="ln(">ln</button>
+
+        <button class="key key-sci" data-insert="log(">log</button>
+        <button class="key key-sci" data-insert="√(">√</button>
+        <button class="key key-sci" data-action="square">x²</button>
+        <button class="key key-sci" data-insert="^">xʸ</button>
+        <button class="key key-sci" data-insert="π">π</button>
+
+        <button class="key key-sci" data-insert="(">(</button>
+        <button class="key key-sci" data-insert=")">)</button>
+        <button class="key key-sci" data-action="recip">1/x</button>
+        <button class="key key-sci" data-insert="!">n!</button>
+        <button class="key key-sci" data-insert="e">e</button>
+      </div>
+    </section>
+
+    <section class="pad" aria-label="Keypad">
+      <button class="key key-utility key-danger" data-action="clear">AC</button>
+      <button class="key key-utility" data-action="backspace" aria-label="Backspace">⌫</button>
+      <button class="key key-utility" data-insert="%">%</button>
+      <button class="key key-op" data-insert="÷">÷</button>
+
+      <button class="key key-digit" data-insert="7">7</button>
+      <button class="key key-digit" data-insert="8">8</button>
+      <button class="key key-digit" data-insert="9">9</button>
+      <button class="key key-op" data-insert="×">×</button>
+
+      <button class="key key-digit" data-insert="4">4</button>
+      <button class="key key-digit" data-insert="5">5</button>
+      <button class="key key-digit" data-insert="6">6</button>
+      <button class="key key-op" data-insert="−">−</button>
+
+      <button class="key key-digit" data-insert="1">1</button>
+      <button class="key key-digit" data-insert="2">2</button>
+      <button class="key key-digit" data-insert="3">3</button>
+      <button class="key key-op" data-insert="+">+</button>
+
+      <button class="key key-digit" data-action="negate">±</button>
+      <button class="key key-digit" data-insert="0">0</button>
+      <button class="key key-digit" data-insert=".">.</button>
+      <button class="key key-eq" data-action="equals">=</button>
+    </section>
+
+  </main>
+  <script src="./calc.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
