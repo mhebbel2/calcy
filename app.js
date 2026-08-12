@@ -38,15 +38,19 @@
     }
   }
 
+  function fitDisplay(minPx) {
+    fitText(display, sciMode ? 40 : 56, minPx);
+  }
+
   function render() {
     display.classList.toggle('is-error', hasError);
     if (hasError) {
       display.textContent = 'Error';
-      fitText(display, 56, 24);
+      fitDisplay(24);
       return;
     }
     display.textContent = expr === '' ? '0' : expr;
-    fitText(display, 56, 22);
+    fitDisplay(20);
 
     // live preview
     var text = '';
@@ -164,7 +168,7 @@
       expr = String(Calcy.evaluate(expr, useDegrees)); // raw, unformatted for continued calc
       justEvaluated = true;
       display.textContent = Calcy.formatNumber(value);
-      fitText(display, 56, 22);
+      fitDisplay(20);
       display.classList.remove('is-error');
       return;
     } catch (e) {
@@ -191,6 +195,7 @@
   function setMode(sci) {
     sciMode = sci;
     sciPanel.hidden = !sci;
+    document.querySelector('.app').classList.toggle('sci', sci);
     modeSwitch.dataset.mode = sci ? 'sci' : 'std';
     modeStd.classList.toggle('is-active', !sci);
     modeSci.classList.toggle('is-active', sci);
@@ -201,6 +206,7 @@
     angleToggle.textContent = useDegrees ? 'DEG' : 'RAD';
     angleToggle.classList.toggle('is-rad', !useDegrees);
     try { localStorage.setItem('calcy-mode', sci ? 'sci' : 'std'); } catch (e) {}
+    render(); // re-fit the readout at its new (smaller) size
   }
 
   modeStd.addEventListener('click', function () { buzz(); setMode(false); });

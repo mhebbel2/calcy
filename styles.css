@@ -176,6 +176,19 @@ body {
 
 .display.is-error { color: var(--danger); font-weight: 500; }
 
+/* compact readout in scientific mode — leaves room for the extra keys */
+.app.sci .readout {
+  flex: 0 1 auto;
+  min-height: 56px;
+  padding: 8px 14px;
+}
+
+.app.sci .readout-meta { min-height: 20px; }
+
+.app.sci .preview { font-size: clamp(13px, 4vw, 17px); }
+
+.app.sci .display { font-size: clamp(28px, 9vw, 42px); }
+
 /* ---------- scientific panel ---------- */
 
 .sci-panel {
