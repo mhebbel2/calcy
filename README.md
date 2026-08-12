@@ -1,4 +1,4 @@
-# calcy
+# Calcy
 
 **[▶ Open the app](https://mhebbel2.github.io/calcy/)**
 

@@ -1,6 +1,6 @@
 {
-  "name": "calcy — calculator",
-  "short_name": "calcy",
+  "name": "Calcy",
+  "short_name": "Calcy",
   "description": "A touch-first pocket calculator with standard and scientific modes. Works offline.",
   "start_url": "./",
   "scope": "./",
