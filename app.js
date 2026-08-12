@@ -192,7 +192,27 @@
 
   /* ---------- mode switch ---------- */
 
-  function setMode(sci) {
+  function requestFs() {
+    var el = document.documentElement;
+    if (document.fullscreenElement || document.webkitFullscreenElement) return;
+    var p;
+    try {
+      if (el.requestFullscreen) p = el.requestFullscreen({ navigationUI: 'hide' });
+      else if (el.webkitRequestFullscreen) p = el.webkitRequestFullscreen();
+      if (p && p.catch) p.catch(function () { /* not allowed: layout still fits */ });
+    } catch (e) { /* fullscreen unsupported (e.g. iPhone Safari) */ }
+  }
+
+  function exitFs() {
+    var p;
+    try {
+      if (document.fullscreenElement && document.exitFullscreen) p = document.exitFullscreen();
+      else if (document.webkitFullscreenElement && document.webkitExitFullscreen) p = document.webkitExitFullscreen();
+      if (p && p.catch) p.catch(function () {});
+    } catch (e) {}
+  }
+
+  function setMode(sci, fromUser) {
     sciMode = sci;
     sciPanel.hidden = !sci;
     document.querySelector('.app').classList.toggle('sci', sci);
@@ -206,11 +226,17 @@
     angleToggle.textContent = useDegrees ? 'DEG' : 'RAD';
     angleToggle.classList.toggle('is-rad', !useDegrees);
     try { localStorage.setItem('calcy-mode', sci ? 'sci' : 'std'); } catch (e) {}
+    // fullscreen needs a user gesture — only toggle it from real taps,
+    // never from the initial mode restore on page load
+    if (fromUser) {
+      if (sci) requestFs();
+      else exitFs();
+    }
     render(); // re-fit the readout at its new (smaller) size
   }
 
-  modeStd.addEventListener('click', function () { buzz(); setMode(false); });
-  modeSci.addEventListener('click', function () { buzz(); setMode(true); });
+  modeStd.addEventListener('click', function () { buzz(); setMode(false, true); });
+  modeSci.addEventListener('click', function () { buzz(); setMode(true, true); });
 
   /* ---------- key wiring ---------- */
 

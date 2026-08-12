@@ -1,5 +1,5 @@
 /* calcy service worker — offline-first app shell */
-var CACHE = 'calcy-v2';
+var CACHE = 'calcy-v3';
 
 var SHELL = [
   './',
